@@ -1,18 +1,18 @@
 import math
 
-shape_choice = input('Программа вычисляет площадь фигуры. Введите цифру для выбора и нажмите Enter:\n'
-                     '1 — круг\n'
-                     '2 — треугольник\n')
-
-
 # Заведём класс для вычисления площадей разных фигур
-class shape_area:
+class ShapeArea:
     # Функция вычисления площади круга
-    def s_circ(R_sirc):
-        print('S круга = ', math.pi * R_circ * R_circ)
+    def sSirc(self, r_circ):
+        s_sirc = round(math.pi * r_circ * r_circ, 2)
+        print('S круга = ', s_sirc)
+        return s_sirc
 
     # Функция вычисления площади треугольника
-    def s_triang(a_side, b_side, c_side, is_triag_right, triag_hyp):
+    def sTriang(self, a_side, b_side, c_side):
+        # Вспомогательные переменные. Помогают избежать ошибок, к примеру, когда треугольник оказался правильным
+        is_triag_right, triag_hyp = True, 0
+
         # Проверим неравенство треугольника, чтобы понять, существует ли фигура
         if (a_side + b_side > c_side) and (a_side + c_side > b_side) and (b_side + c_side > a_side):
 
@@ -35,8 +35,9 @@ class shape_area:
 
             if triag_hyp != 0:
                 if triag_hyp ** 2 == fir_cat ** 2 + sec_cat ** 2:
-                    S_triang = (fir_cat * sec_cat) / 2
-                    print('Это прямоугольный треугольник. S = ', round(S_triang, 2))
+                    s_triang = round((fir_cat * sec_cat) / 2, 2)
+                    print('Это прямоугольный треугольник. S = ', s_triang)
+                    return s_triang
                 else:
                     is_triag_right = False
             else:
@@ -45,22 +46,10 @@ class shape_area:
             print(
                 'Ошибка: не выполнено неравенство треугольника, фигура не существует.'
                 'Подробнее https://ru.wikipedia.org/wiki/Неравенство_треугольника')
+            return False
 
         if is_triag_right == False:
             p_triang = (a_side + b_side + c_side) / 2
-            S_triang = math.sqrt(p_triang * (p_triang - a_side) * (p_triang - b_side) * (p_triang - c_side))
-            print('S = ', round(S_triang, 2))
-
-
-if shape_choice == '1':
-    R_circ = float(input('Введите радиус фигуры, R: '))
-    shape_area.s_circ(R_circ)
-elif shape_choice == '2':
-    a_side, b_side, c_side = (int(input('Введите три стороны треугольника, после ввода каждой нажимайте Enter: ')),
-                              int(input()), int(input()))
-    # Вспомогательные переменные. Помогают избежать ошибок, к примеру, когда треугольник оказался правильным
-    is_triag_right, triag_hyp = True, 0
-
-    shape_area.s_triang(a_side, b_side, c_side, is_triag_right, triag_hyp)
-else:
-    print('Ошибка: фигуры нет в списке. Пожалуйста, введите цифру вашей фигуры согласно инструкции. ')
+            s_triang = round(math.sqrt(p_triang * (p_triang - a_side) * (p_triang - b_side) * (p_triang - c_side)), 2)
+            print('S треугольника = ', s_triang)
+            return s_triang
